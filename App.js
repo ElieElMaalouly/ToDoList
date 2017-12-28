@@ -1,51 +1,56 @@
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Platform } from "react-native";
+import { Navigation } from "react-native-navigation";
+import { registerScreens, registerScreenVisibilityListener } from "./screens";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+// screen related book keeping
+registerScreens();
+registerScreenVisibilityListener();
 
-export default class App extends Component<{}> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
+const tabs = [
+  {
+    label: "Navigation",
+    screen: "example.Types",
+    title: "Navigation Types"
+  },
+  {
+    label: "Actions",
+    screen: "example.Actions",
+    title: "Navigation Actions"
   }
+];
+
+if (Platform.OS === "android") {
+  tabs.push({
+    label: "Transitions",
+    screen: "example.Transitions",
+    title: "Navigation Transitions"
+  });
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+// this will start our app
+Navigation.startTabBasedApp({
+  tabs,
+  animationType: Platform.OS === "ios" ? "slide-down" : "fade",
+  tabsStyle: {
+    tabBarBackgroundColor: "#003a66",
+    tabBarButtonColor: "#ffffff",
+    tabBarSelectedButtonColor: "#ff505c",
+    tabFontFamily: "BioRhyme-Bold"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  appStyle: {
+    tabBarBackgroundColor: "#003a66",
+    navBarButtonColor: "#ffffff",
+    tabBarButtonColor: "#ffffff",
+    navBarTextColor: "#ffffff",
+    tabBarSelectedButtonColor: "#ff505c",
+    navigationBarColor: "#003a66",
+    navBarBackgroundColor: "#003a66",
+    statusBarColor: "#002b4c",
+    tabFontFamily: "BioRhyme-Bold"
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  drawer: {
+    left: {
+      screen: "example.Types.Drawer"
+    }
+  }
 });

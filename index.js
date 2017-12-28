@@ -1,4 +1,13 @@
-import { AppRegistry } from 'react-native';
-import App from './App';
+import { Navigation } from "react-native-navigation";
 
-AppRegistry.registerComponent('ToDoList', () => App);
+import { registerScreens } from "./screens";
+
+registerScreens();
+
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: "ToDoList.LoginScreen",
+    backButtonTitle: ""
+  },
+  animationType: "none"
+});
