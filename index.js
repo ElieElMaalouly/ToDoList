@@ -6,8 +6,8 @@ registerScreens();
 
 Navigation.startSingleScreenApp({
   screen: {
-    screen: "todolist.homescreen",
-    title: "To-Do List"
+    screen: "todolist.loginscreen",
+    title: "Login"
   },
   animationType: "none"
 });
