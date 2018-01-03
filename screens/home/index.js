@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  NativeModules,
   StyleSheet,
   Text,
   View,
@@ -17,6 +18,10 @@ export default class HomeScreen extends React.Component {
       {
         title: "Add",
         id: "btnAdd"
+      },
+      {
+        title: "Volume",
+        id: "btnVolume"
       }
     ]
   };
@@ -50,6 +55,11 @@ export default class HomeScreen extends React.Component {
           screen: "todolist.addtaskscreen",
           title: "Add Task"
         });
+      } else if (event.id == "btnVolume") {
+        var AlertModule = NativeModules.AlertModule;
+        AlertModule.get().then(volume =>
+          alert("Volume: " + volume + ". From native code!")
+        );
       }
     }
   }
